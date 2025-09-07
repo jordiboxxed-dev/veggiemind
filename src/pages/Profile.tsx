@@ -18,7 +18,7 @@ const skillLevels = ["Principiante", "Intermedio", "Avanzado"];
 const cookingTimes = ["Menos de 30min", "30-60 min", "Más de 60min"];
 
 const Profile = () => {
-  const { profile, user } = useSession();
+  const { profile, user, refreshProfile } = useSession();
   const { generateWeeklyMenu } = useRecipeStore();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -76,6 +76,7 @@ const Profile = () => {
       showError("Hubo un error al guardar tus preferencias.");
     } else {
       showSuccess("¡Tu cocina ha sido actualizada!");
+      await refreshProfile();
       generateWeeklyMenu();
       navigate('/dashboard');
     }

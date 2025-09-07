@@ -11,6 +11,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
+import { useSession } from "@/contexts/SessionContext";
 
 const goals = [
   { title: "Perder Peso", description: "Planes optimizados en calorías." },
@@ -36,6 +37,7 @@ const TOTAL_STEPS = 5;
 
 const Onboarding = () => {
   const navigate = useNavigate();
+  const { refreshProfile } = useSession();
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     goal: "",
@@ -90,6 +92,7 @@ const Onboarding = () => {
       console.error(error);
     } else {
       showSuccess("¡Perfil guardado! Preparando tu primer menú...");
+      await refreshProfile();
       navigate("/dashboard");
     }
   };

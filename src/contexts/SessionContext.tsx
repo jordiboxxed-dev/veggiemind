@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState, useCallback } from 'react';
 import { Session, User } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
 
@@ -16,6 +16,7 @@ interface SessionContextValue {
   profile: Profile | null;
   loading: boolean;
   logout: () => Promise<void>;
+  refreshProfile: () => Promise<void>;
 }
 
 const SessionContext = createContext<SessionContextValue | undefined>(undefined);
@@ -26,36 +27,51 @@ export const SessionProvider = ({ children }: { children: React.ReactNode }) => 
   const [profile, setProfile] = useState<Profile | null>(null);
   const [loading, setLoading] = useState(true);
 
+  const fetchProfile = useCallback(async (user: User | null) => {
+    if (!user) {
+      setProfile(null);
+      return;
+    }
+    try {
+      const { data: userProfile, error } = await supabase
+        .from('user_profiles')
+        .select('goal, allergies, disliked_ingredients, skill_level, cooking_time')
+        .eq('id', user.id)
+        .single();
+      
+      if (error) {
+        console.error("Error fetching profile:", error);
+        setProfile(null);
+      } else {
+        setProfile(userProfile);
+      }
+    } catch (e) {
+      console.error("Exception fetching profile:", e);
+      setProfile(null);
+    }
+  }, []);
+
   useEffect(() => {
-    setLoading(true);
+    const fetchInitialSession = async () => {
+      setLoading(true);
+      const { data: { session } } = await supabase.auth.getSession();
+      setSession(session);
+      const currentUser = session?.user ?? null;
+      setUser(currentUser);
+      await fetchProfile(currentUser);
+      setLoading(false);
+    };
+
+    fetchInitialSession();
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (_event, session) => {
         setSession(session);
-        setUser(session?.user ?? null);
-
-        if (session?.user) {
-          try {
-            const { data: userProfile, error } = await supabase
-              .from('user_profiles')
-              .select('goal, allergies, disliked_ingredients, skill_level, cooking_time')
-              .eq('id', session.user.id)
-              .single();
-            
-            if (error) {
-              console.error("Error fetching profile:", error);
-              setProfile(null);
-            } else {
-              setProfile(userProfile);
-            }
-          } catch (e) {
-            console.error("Exception fetching profile:", e);
-            setProfile(null);
-          } finally {
-            setLoading(false);
-          }
-        } else {
-          setProfile(null);
+        const currentUser = session?.user ?? null;
+        setUser(currentUser);
+        if (currentUser) {
+          setLoading(true);
+          await fetchProfile(currentUser);
           setLoading(false);
         }
       }
@@ -64,11 +80,17 @@ export const SessionProvider = ({ children }: { children: React.ReactNode }) => 
     return () => {
       subscription.unsubscribe();
     };
-  }, []);
+  }, [fetchProfile]);
 
   const logout = async () => {
     await supabase.auth.signOut();
   };
+
+  const refreshProfile = useCallback(async () => {
+    if (user) {
+      await fetchProfile(user);
+    }
+  }, [user, fetchProfile]);
 
   const value = {
     session,
@@ -76,6 +98,7 @@ export const SessionProvider = ({ children }: { children: React.ReactNode }) => 
     profile,
     loading,
     logout,
+    refreshProfile,
   };
 
   return (
