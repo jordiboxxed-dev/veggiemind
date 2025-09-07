@@ -65,6 +65,7 @@ const Onboarding = () => {
 
   const handleSubmit = async () => {
     const toastId = showLoading("Guardando tu perfil...");
+    
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) {
       dismissToast(toastId);
@@ -93,7 +94,10 @@ const Onboarding = () => {
     } else {
       showSuccess("¡Perfil guardado! Preparando tu primer menú...");
       await refreshProfile();
-      navigate("/dashboard");
+      // Small delay to ensure profile is refreshed before navigating
+      setTimeout(() => {
+        navigate("/dashboard");
+      }, 1000);
     }
   };
 
@@ -131,6 +135,12 @@ const Onboarding = () => {
                         </div>
                     ))}
                 </div>
+                <div className="mt-8 w-full flex justify-between">
+                  <Button variant="ghost" onClick={prevStep}>
+                    <ArrowLeft className="mr-2 h-4 w-4" /> Atrás
+                  </Button>
+                  <Button onClick={nextStep}>Siguiente</Button>
+                </div>
             </>
         )}
 
@@ -144,6 +154,12 @@ const Onboarding = () => {
                     onChange={(e) => handleUpdateData('dislikedIngredients', e.target.value)}
                     className="bg-white/5 border-white/10"
                 />
+                <div className="mt-8 w-full flex justify-between">
+                  <Button variant="ghost" onClick={prevStep}>
+                    <ArrowLeft className="mr-2 h-4 w-4" /> Atrás
+                  </Button>
+                  <Button onClick={nextStep}>Siguiente</Button>
+                </div>
             </>
         )}
 
@@ -168,30 +184,28 @@ const Onboarding = () => {
                 <p className="mt-2 mb-8 text-lg text-foreground/80">Para tus comidas principales como almuerzo o cena.</p>
                 <div className="w-full space-y-4">
                     {cookingTimes.map((t) => (
-                        <GlassCard key={t.title} className={cn("p-6 w-full text-left hover:border-brand-green/50 transition-all cursor-pointer", formData.cookingTime === t.title && "border-brand-green")} onClick={() => handleUpdateData('cookingTime', t.title)}>
+                        <GlassCard key={t.title} className={cn("p-6 w-full text-left hover:border-brand-green/50 transition-all cursor-pointer", formData.cookingTime === t.title && "border-brand-green")} onClick={() => { handleUpdateData('cookingTime', t.title); }}>
                             <h3 className="font-bold text-lg text-foreground">{t.title}</h3>
                             <p className="text-foreground/70">{t.description}</p>
                         </GlassCard>
                     ))}
                 </div>
+                <div className="mt-8 w-full flex justify-between">
+                  <Button variant="ghost" onClick={prevStep}>
+                    <ArrowLeft className="mr-2 h-4 w-4" /> Atrás
+                  </Button>
+                  <Button onClick={handleSubmit} className="bg-brand-green text-background font-bold shadow-[0_0_20px_theme('colors.brand-green/50%')] hover:bg-brand-green/90">
+                    Finalizar <Check className="ml-2 h-4 w-4" />
+                  </Button>
+                </div>
             </>
         )}
 
-        <div className="mt-8 w-full">
+        {step !== 1 && step !== 4 && step !== 5 && (
+          <div className="mt-8 w-full">
             <Progress value={progress} className="w-full h-2 bg-white/10 [&>div]:bg-brand-green" />
-            <div className="flex justify-between items-center mt-4">
-                <Button variant="ghost" onClick={prevStep} disabled={step === 1}>
-                    <ArrowLeft className="mr-2 h-4 w-4" /> Atrás
-                </Button>
-                {step < TOTAL_STEPS ? (
-                    <Button onClick={nextStep}>Siguiente</Button>
-                ) : (
-                    <Button onClick={handleSubmit} className="bg-brand-green text-background font-bold shadow-[0_0_20px_theme('colors.brand-green/50%')] hover:bg-brand-green/90">
-                        Finalizar <Check className="ml-2 h-4 w-4" />
-                    </Button>
-                )}
-            </div>
-        </div>
+          </div>
+        )}
       </main>
     </div>
   );

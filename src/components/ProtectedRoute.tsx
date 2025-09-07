@@ -1,15 +1,9 @@
 import { useSession } from '@/contexts/SessionContext';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
-import { useEffect } from 'react';
 
 const ProtectedRoute = () => {
   const { session, profile, loading } = useSession();
   const location = useLocation();
-
-  // Redirect to login if not authenticated and not already on login page
-  if (!loading && !session && location.pathname !== '/login') {
-    return <Navigate to="/login" replace />;
-  }
 
   // Show loading state while checking auth
   if (loading) {
@@ -18,6 +12,11 @@ const ProtectedRoute = () => {
         <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin border-brand-green"></div>
       </div>
     );
+  }
+
+  // Redirect to login if not authenticated and not already on login page
+  if (!session && location.pathname !== '/login' && location.pathname !== '/') {
+    return <Navigate to="/login" replace />;
   }
 
   // If authenticated but no profile, redirect to onboarding

@@ -43,7 +43,7 @@ export const SessionProvider = ({ children }: { children: React.ReactNode }) => 
         console.error("Error fetching profile:", error);
         setProfile(null);
       } else {
-        setProfile(userProfile);
+        setProfile(userProfile || null);
       }
     } catch (e) {
       console.error("Exception fetching profile:", e);
@@ -58,7 +58,9 @@ export const SessionProvider = ({ children }: { children: React.ReactNode }) => 
         setSession(session);
         const currentUser = session?.user ?? null;
         setUser(currentUser);
-        await fetchProfile(currentUser);
+        if (currentUser) {
+          await fetchProfile(currentUser);
+        }
       } catch (error) {
         console.error("Error fetching initial session:", error);
       } finally {
@@ -75,6 +77,8 @@ export const SessionProvider = ({ children }: { children: React.ReactNode }) => 
         setUser(currentUser);
         if (currentUser) {
           await fetchProfile(currentUser);
+        } else {
+          setProfile(null);
         }
       }
     );
