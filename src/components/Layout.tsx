@@ -1,5 +1,5 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Bot, CalendarDays, UtensilsCrossed, LogOut } from "lucide-react";
+import { Bot, CalendarDays, UtensilsCrossed, LogOut, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/use-mobile";
 import MobileHeader from "./MobileHeader";
@@ -35,6 +35,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const navItems = [
     { href: "/dashboard", label: "Menú Semanal", icon: CalendarDays },
     { href: "/recipes", label: "Recetas", icon: UtensilsCrossed },
+    { href: "/profile", label: "Mi Cocina", icon: User },
   ];
 
   if (isMobile) {

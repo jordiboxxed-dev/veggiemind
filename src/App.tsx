@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import Onboarding from "./pages/Onboarding";
 import Dashboard from "./pages/Dashboard";
 import Recipes from "./pages/Recipes";
+import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 import Layout from "./components/Layout";
 import Login from "./pages/Login";
@@ -41,6 +42,14 @@ const App = () => (
                 element={
                   <Layout>
                     <Recipes />
+                  </Layout>
+                } 
+              />
+              <Route 
+                path="/profile" 
+                element={
+                  <Layout>
+                    <Profile />
                   </Layout>
                 } 
               />
