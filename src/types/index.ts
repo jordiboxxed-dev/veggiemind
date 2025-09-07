@@ -20,4 +20,5 @@ export interface Recipe {
   kaiaTips: string[];
   imageUrl: string;
   tags: string[];
+  preparation: string;
 }

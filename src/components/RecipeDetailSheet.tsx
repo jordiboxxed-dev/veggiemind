@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/sheet";
 import { useRecipeStore } from "@/store/recipeStore";
 import { Badge } from "./ui/badge";
-import { Flame, BrainCircuit, ChefHat, Clock } from "lucide-react";
+import { Flame, BrainCircuit, ChefHat, Clock, BookOpen } from "lucide-react";
 
 const RecipeDetailSheet = () => {
   const { selectedRecipe, clearSelectedRecipe } = useRecipeStore();
@@ -36,6 +36,14 @@ const RecipeDetailSheet = () => {
                     <li key={ing.name}>{ing.quantity} {ing.name}</li>
                   ))}
                 </ul>
+              </div>
+              <div>
+                <h3 className="font-semibold text-lg mb-2 text-neon-cyan flex items-center gap-2">
+                  <BookOpen className="w-5 h-5" /> Preparación
+                </h3>
+                <p className="text-foreground/80 bg-white/5 p-3 rounded-lg text-sm leading-relaxed">
+                  {selectedRecipe.preparation}
+                </p>
               </div>
               <div>
                 <h3 className="font-semibold text-lg mb-2 text-neon-cyan">Nutrición (aprox.)</h3>
