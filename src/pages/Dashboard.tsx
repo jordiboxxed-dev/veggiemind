@@ -10,9 +10,9 @@ const Dashboard = () => {
 
   return (
     <AnimatedPage>
-      <div className="flex flex-col items-start w-full max-w-4xl mx-auto">
-        <div className="w-full flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
-          <div>
+      <div className="flex flex-col items-center w-full max-w-4xl mx-auto">
+        <div className="w-full flex flex-col sm:flex-row justify-between items-center gap-4 mb-8">
+          <div className="text-center sm:text-left">
             <h1 className="text-3xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-brand-green to-neon-cyan">
               Tu Menú Semanal
             </h1>

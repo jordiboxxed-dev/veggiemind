@@ -20,7 +20,7 @@ const Recipes = () => {
   return (
     <AnimatedPage>
       <div className="w-full">
-        <div className="mb-8">
+        <div className="mb-8 text-center sm:text-left">
           <h1 className="text-3xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-brand-green to-neon-cyan">
             Recetario de Kaia
           </h1>

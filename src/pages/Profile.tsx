@@ -84,7 +84,7 @@ const Profile = () => {
   return (
     <AnimatedPage>
       <div className="w-full max-w-3xl mx-auto space-y-8">
-        <div>
+        <div className="text-center sm:text-left">
           <h1 className="text-3xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-brand-green to-neon-cyan">
             Mi Cocina
           </h1>
