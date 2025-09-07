@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Onboarding from "./pages/Onboarding";
 import Dashboard from "./pages/Dashboard";
+import Recipes from "./pages/Recipes";
 import NotFound from "./pages/NotFound";
 import Layout from "./components/Layout";
 
@@ -25,6 +26,14 @@ const App = () => (
             element={
               <Layout>
                 <Dashboard />
+              </Layout>
+            } 
+          />
+          <Route 
+            path="/recipes" 
+            element={
+              <Layout>
+                <Recipes />
               </Layout>
             } 
           />

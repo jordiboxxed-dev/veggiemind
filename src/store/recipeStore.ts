@@ -81,14 +81,17 @@ const generateMenu = (): Record<string, { breakfast: Recipe; lunch: Recipe; dinn
     }
 }
 
+type MealType = 'breakfast' | 'lunch' | 'dinner';
+
 interface RecipeState {
   recipes: Recipe[];
   weeklyMenu: Record<string, { breakfast: Recipe; lunch: Recipe; dinner: Recipe }>;
   selectedRecipe: Recipe | null;
   getRecipeById: (id: string) => Recipe | undefined;
-  setSelectedRecipe: (recipe: Recipe) => void;
+  setSelectedRecipe: (recipe: Recipe | null) => void;
   clearSelectedRecipe: () => void;
   regenerateWeeklyMenu: () => void;
+  swapMeal: (day: string, mealType: MealType, newRecipe: Recipe) => void;
 }
 
 export const useRecipeStore = create<RecipeState>((set, get) => ({
@@ -99,4 +102,15 @@ export const useRecipeStore = create<RecipeState>((set, get) => ({
   setSelectedRecipe: (recipe) => set({ selectedRecipe: recipe }),
   clearSelectedRecipe: () => set({ selectedRecipe: null }),
   regenerateWeeklyMenu: () => set({ weeklyMenu: generateMenu() }),
+  swapMeal: (day, mealType, newRecipe) => {
+    set((state) => ({
+      weeklyMenu: {
+        ...state.weeklyMenu,
+        [day]: {
+          ...state.weeklyMenu[day],
+          [mealType]: newRecipe,
+        },
+      },
+    }));
+  },
 }));
