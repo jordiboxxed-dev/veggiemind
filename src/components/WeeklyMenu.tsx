@@ -5,6 +5,7 @@ import { RefreshCw, Coffee, Sun, Moon } from 'lucide-react';
 import { useState } from 'react';
 import MealSwapDialog from './MealSwapDialog';
 import { motion } from 'framer-motion';
+import { Skeleton } from './ui/skeleton';
 
 const daysOfWeek = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
 type MealType = 'breakfast' | 'lunch' | 'dinner';
@@ -65,6 +66,23 @@ const WeeklyMenu = () => {
       </button>
     </div>
   );
+
+  if (Object.keys(weeklyMenu).length === 0) {
+    return (
+      <div className="w-full space-y-4">
+        {daysOfWeek.map((day) => (
+          <GlassCard key={day} className="p-4">
+            <Skeleton className="h-6 w-1/3 mb-4" />
+            <div className="space-y-4">
+              <Skeleton className="h-10 w-full" />
+              <Skeleton className="h-10 w-full" />
+              <Skeleton className="h-10 w-full" />
+            </div>
+          </GlassCard>
+        ))}
+      </div>
+    );
+  }
 
   return (
     <>
