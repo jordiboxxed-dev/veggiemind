@@ -19,6 +19,7 @@ const ProtectedRoute = () => {
     return <Navigate to="/login" replace />;
   }
 
+  // If user is authenticated, allow access to protected routes
   return <Outlet />;
 };
 
