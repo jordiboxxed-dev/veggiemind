@@ -62,6 +62,9 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        'brand-green': '#34D399',
+        'neon-cyan': '#22D3EE',
+        'neon-purple': '#A78BFA',
       },
       borderRadius: {
         lg: "var(--radius)",
