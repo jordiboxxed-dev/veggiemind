@@ -20,23 +20,18 @@ const RecipeCard = ({ recipe }: RecipeCardProps) => {
   const { setSelectedRecipe } = useRecipeStore();
 
   return (
-    <motion.div variants={cardVariants}>
+    <motion.div variants={cardVariants} className="h-full">
       <GlassCard 
-        className="overflow-hidden cursor-pointer group transition-all hover:border-brand-green/50 h-full"
+        className="cursor-pointer group transition-all hover:border-brand-green/50 h-full p-4 flex flex-col justify-between"
         onClick={() => setSelectedRecipe(recipe)}
       >
-        <div className="h-40 bg-white/10 flex items-center justify-center">
-          <img src={recipe.imageUrl} alt={recipe.title} className="w-24 h-24 opacity-50 group-hover:opacity-100 group-hover:scale-110 transition-all" />
-        </div>
-        <div className="p-4">
-          <h3 className="font-bold text-lg truncate text-foreground">{recipe.title}</h3>
-          <div className="flex items-center justify-between text-xs text-foreground/70 mt-2">
-            <div className="flex items-center gap-1">
-              <Clock className="w-3 h-3" /> {recipe.cookTime} min
-            </div>
-            <div className="flex items-center gap-1 capitalize">
-              <ChefHat className="w-3 h-3" /> {recipe.difficulty}
-            </div>
+        <h3 className="font-bold text-lg text-foreground group-hover:text-brand-green transition-colors">{recipe.title}</h3>
+        <div className="flex items-center justify-between text-xs text-foreground/70 mt-4">
+          <div className="flex items-center gap-1">
+            <Clock className="w-3 h-3" /> {recipe.cookTime} min
+          </div>
+          <div className="flex items-center gap-1 capitalize">
+            <ChefHat className="w-3 h-3" /> {recipe.difficulty}
           </div>
         </div>
       </GlassCard>
