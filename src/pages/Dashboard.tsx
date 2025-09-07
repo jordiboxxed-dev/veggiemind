@@ -6,7 +6,7 @@ import { useRecipeStore } from '@/store/recipeStore';
 import AnimatedPage from '@/components/AnimatedPage';
 
 const Dashboard = () => {
-  const { regenerateWeeklyMenu } = useRecipeStore();
+  const { generateWeeklyMenu } = useRecipeStore();
 
   return (
     <AnimatedPage>
@@ -20,7 +20,7 @@ const Dashboard = () => {
               Planificado por Kaia para ti.
             </p>
           </div>
-          <Button onClick={regenerateWeeklyMenu} className="w-full sm:w-auto">
+          <Button onClick={generateWeeklyMenu} className="w-full sm:w-auto">
             <Sparkles className="mr-2 h-4 w-4" />
             Generar Nuevo Menú
           </Button>

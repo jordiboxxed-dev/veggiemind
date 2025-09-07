@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { Recipe } from '@/types';
+import { Profile } from '@/contexts/SessionContext';
 
 // Mock Data
 const mockRecipes: Recipe[] = [
@@ -21,7 +22,7 @@ const mockRecipes: Recipe[] = [
     cookTime: 40,
     kaiaTips: ['Añade una hoja de laurel para más sabor.', 'Un chorrito de vinagre al final realza los sabores.'],
     imageUrl: '/placeholder.svg',
-    tags: ['high-protein'],
+    tags: ['high-protein', 'gluten-free', 'soy-free', 'nut-free'],
   },
   {
     id: '2',
@@ -39,7 +40,7 @@ const mockRecipes: Recipe[] = [
     cookTime: 15,
     kaiaTips: ['Usa sal negra (kala namak) para un sabor a huevo.', 'No cocines el tofu en exceso para que no se seque.'],
     imageUrl: '/placeholder.svg',
-    tags: ['low-calorie', 'high-protein'],
+    tags: ['low-calorie', 'high-protein', 'gluten-free', 'nut-free'],
   },
   {
     id: '3',
@@ -58,7 +59,7 @@ const mockRecipes: Recipe[] = [
     cookTime: 20,
     kaiaTips: ['Tuesta la quinoa antes de cocerla para un sabor más intenso.', 'Deja que la ensalada repose 10 minutos antes de servir.'],
     imageUrl: '/placeholder.svg',
-    tags: ['low-calorie', 'balanced'],
+    tags: ['low-calorie', 'balanced', 'gluten-free', 'soy-free', 'nut-free'],
   },
   {
     id: '4',
@@ -78,7 +79,7 @@ const mockRecipes: Recipe[] = [
     cookTime: 25,
     kaiaTips: ['Sirve con arroz basmati para una comida completa.', 'Añade un poco de zumo de lima al final para avivar los sabores.'],
     imageUrl: '/placeholder.svg',
-    tags: ['low-calorie', 'balanced'],
+    tags: ['low-calorie', 'balanced', 'gluten-free', 'soy-free', 'nut-free'],
   },
   {
     id: '5',
@@ -98,7 +99,7 @@ const mockRecipes: Recipe[] = [
     cookTime: 20,
     kaiaTips: ['Calienta las tortillas en una sartén antes de servir.', 'Añade aguacate en rodajas para más cremosidad y grasas saludables.'],
     imageUrl: '/placeholder.svg',
-    tags: ['low-calorie', 'balanced'],
+    tags: ['low-calorie', 'balanced', 'gluten-free', 'soy-free', 'nut-free'],
   },
   {
     id: '6',
@@ -116,7 +117,7 @@ const mockRecipes: Recipe[] = [
     cookTime: 50,
     kaiaTips: ['Asar los tomates intensifica su dulzura.', 'Añade un chorrito de leche de coco para una sopa más cremosa.'],
     imageUrl: '/placeholder.svg',
-    tags: ['low-calorie'],
+    tags: ['low-calorie', 'gluten-free', 'soy-free', 'nut-free'],
   },
   {
     id: '7',
@@ -125,7 +126,7 @@ const mockRecipes: Recipe[] = [
       { name: 'Pasta integral', quantity: '200g' },
       { name: 'Aguacate maduro', quantity: '1' },
       { name: 'Albahaca fresca', quantity: '1 taza' },
-      { name: 'Piñones o nueces', quantity: '1/4 taza' },
+      { name: 'Piñones', quantity: '1/4 taza' },
       { name: 'Zumo de limón', quantity: '1/2' },
       { name: 'Ajo', quantity: '1 diente' },
       { name: 'Levadura nutricional', quantity: '2 cdas' },
@@ -135,7 +136,7 @@ const mockRecipes: Recipe[] = [
     cookTime: 15,
     kaiaTips: ['Guarda un poco del agua de cocción de la pasta para aligerar la salsa si es necesario.', 'El zumo de limón evita que el aguacate se oxide.'],
     imageUrl: '/placeholder.svg',
-    tags: ['balanced'],
+    tags: ['balanced', 'soy-free'],
   },
   {
     id: '8',
@@ -153,7 +154,7 @@ const mockRecipes: Recipe[] = [
     cookTime: 30,
     kaiaTips: ['Seca bien los frijoles para que la hamburguesa no quede blanda.', 'Puedes hornear las hamburguesas en lugar de freírlas para una opción más saludable.'],
     imageUrl: '/placeholder.svg',
-    tags: ['high-protein'],
+    tags: ['high-protein', 'soy-free', 'nut-free'],
   },
   {
     id: '9',
@@ -173,7 +174,7 @@ const mockRecipes: Recipe[] = [
     cookTime: 35,
     kaiaTips: ['La clave de un buen Buddha Bowl es la variedad de texturas y colores.', 'Prepara los componentes por adelantado para un montaje rápido.'],
     imageUrl: '/placeholder.svg',
-    tags: ['high-protein'],
+    tags: ['high-protein', 'gluten-free'],
   },
   {
     id: '10',
@@ -193,7 +194,7 @@ const mockRecipes: Recipe[] = [
     cookTime: 45,
     kaiaTips: ['El chili sabe aún mejor al día siguiente.', 'Sírvelo con aguacate, cilantro y "crema agria" vegana.'],
     imageUrl: '/placeholder.svg',
-    tags: ['high-protein'],
+    tags: ['high-protein', 'gluten-free', 'nut-free'],
   },
   {
     id: '11',
@@ -212,7 +213,7 @@ const mockRecipes: Recipe[] = [
     cookTime: 75,
     kaiaTips: ['Prensa bien el tofu para quitar el exceso de agua y obtener una mejor textura de "ricotta".', 'Deja reposar la lasaña 10 minutos antes de cortarla.'],
     imageUrl: '/placeholder.svg',
-    tags: ['high-protein'],
+    tags: ['high-protein', 'nut-free'],
   },
   {
     id: '12',
@@ -231,7 +232,7 @@ const mockRecipes: Recipe[] = [
     cookTime: 40,
     kaiaTips: ['La clave del risotto es añadir el caldo poco a poco y remover constantemente.', 'Termina con un chorrito de aceite de trufa para un toque gourmet.'],
     imageUrl: '/placeholder.svg',
-    tags: ['balanced'],
+    tags: ['balanced', 'gluten-free', 'soy-free', 'nut-free'],
   },
   {
     id: '13',
@@ -252,7 +253,7 @@ const mockRecipes: Recipe[] = [
     cookTime: 30,
     kaiaTips: ['No remojes los fideos de arroz en exceso o se volverán blandos.', 'Prensa el tofu para que quede más crujiente al freírlo.'],
     imageUrl: '/placeholder.svg',
-    tags: ['high-protein'],
+    tags: ['high-protein', 'gluten-free'],
   },
   {
     id: '14',
@@ -269,7 +270,7 @@ const mockRecipes: Recipe[] = [
     cookTime: 10,
     kaiaTips: ['Nunca hiervas la sopa una vez añadido el miso, ya que mataría sus probióticos.', 'Disuelve la pasta de miso en un poco de caldo caliente antes de añadirla a la olla.'],
     imageUrl: '/placeholder.svg',
-    tags: ['low-calorie'],
+    tags: ['low-calorie', 'gluten-free', 'nut-free'],
   },
   {
     id: '15',
@@ -287,7 +288,7 @@ const mockRecipes: Recipe[] = [
     cookTime: 15,
     kaiaTips: ['Calienta el pan de pita para que sea más flexible.', 'Añade un poco de salsa tahini o yogur vegano para más cremosidad.'],
     imageUrl: '/placeholder.svg',
-    tags: ['balanced'],
+    tags: ['balanced', 'soy-free'],
   },
   {
     id: '16',
@@ -306,7 +307,7 @@ const mockRecipes: Recipe[] = [
     cookTime: 25,
     kaiaTips: ['Precalienta bien el horno con la bandeja dentro para una base más crujiente.', 'Un chorrito de aceite de oliva y orégano seco antes de hornear le da un gran sabor.'],
     imageUrl: '/placeholder.svg',
-    tags: ['high-protein'],
+    tags: ['high-protein', 'soy-free', 'nut-free'],
   },
   {
     id: '17',
@@ -324,7 +325,7 @@ const mockRecipes: Recipe[] = [
     cookTime: 20,
     kaiaTips: ['Fríe las hojas de salvia en un poco de aceite hasta que estén crujientes para decorar.', 'Tuesta unas semillas de calabaza para añadir un toque crujiente.'],
     imageUrl: '/placeholder.svg',
-    tags: ['balanced'],
+    tags: ['balanced', 'soy-free', 'nut-free'],
   },
   {
     id: '18',
@@ -343,11 +344,10 @@ const mockRecipes: Recipe[] = [
     cookTime: 60,
     kaiaTips: ['"Asusta" las berenjenas con sal para quitarles el amargor antes de cocinarlas.', 'Añade pasas y piñones al relleno para un toque agridulce.'],
     imageUrl: '/placeholder.svg',
-    tags: ['low-calorie', 'high-protein'],
+    tags: ['low-calorie', 'high-protein', 'gluten-free', 'nut-free'],
   },
 ];
 
-// Helper para barajar el array de recetas
 const shuffle = (array: Recipe[]) => {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -356,16 +356,26 @@ const shuffle = (array: Recipe[]) => {
   return array;
 }
 
-const generateMenu = (): Record<string, { breakfast: Recipe; lunch: Recipe; dinner: Recipe }> => {
-    const shuffled = shuffle([...mockRecipes, ...mockRecipes, ...mockRecipes]); // Aseguramos suficientes recetas
+const generateMenuFromRecipes = (recipes: Recipe[]): Record<string, { breakfast: Recipe; lunch: Recipe; dinner: Recipe }> => {
+    if (recipes.length === 0) {
+        // Fallback to all recipes if filtering results in an empty list
+        recipes = mockRecipes;
+    }
+    
+    let paddedRecipes = [...recipes];
+    while (paddedRecipes.length < 9) {
+        paddedRecipes.push(...recipes);
+    }
+
+    const shuffled = shuffle(paddedRecipes);
     return {
         Lunes: { breakfast: shuffled[0], lunch: shuffled[1], dinner: shuffled[2] },
         Martes: { breakfast: shuffled[3], lunch: shuffled[4], dinner: shuffled[5] },
         Miércoles: { breakfast: shuffled[6], lunch: shuffled[7], dinner: shuffled[8] },
-        Jueves: { breakfast: shuffled[0], lunch: shuffled[3], dinner: shuffled[6] },
-        Viernes: { breakfast: shuffled[1], lunch: shuffled[4], dinner: shuffled[7] },
-        Sábado: { breakfast: shuffled[2], lunch: shuffled[5], dinner: shuffled[8] },
-        Domingo: { breakfast: shuffled[0], lunch: shuffled[2], dinner: shuffled[4] },
+        Jueves: { breakfast: shuffled[1], lunch: shuffled[3], dinner: shuffled[5] },
+        Viernes: { breakfast: shuffled[2], lunch: shuffled[4], dinner: shuffled[6] },
+        Sábado: { breakfast: shuffled[0], lunch: shuffled[7], dinner: shuffled[8] },
+        Domingo: { breakfast: shuffled[3], lunch: shuffled[1], dinner: shuffled[4] },
     }
 }
 
@@ -375,21 +385,63 @@ interface RecipeState {
   recipes: Recipe[];
   weeklyMenu: Record<string, { breakfast: Recipe; lunch: Recipe; dinner: Recipe }>;
   selectedRecipe: Recipe | null;
+  userProfile: Profile | null;
   getRecipeById: (id: string) => Recipe | undefined;
   setSelectedRecipe: (recipe: Recipe | null) => void;
   clearSelectedRecipe: () => void;
-  regenerateWeeklyMenu: () => void;
+  setUserProfile: (profile: Profile | null) => void;
+  generateWeeklyMenu: () => void;
   swapMeal: (day: string, mealType: MealType, newRecipe: Recipe) => void;
 }
 
 export const useRecipeStore = create<RecipeState>((set, get) => ({
   recipes: mockRecipes,
-  weeklyMenu: generateMenu(),
+  weeklyMenu: {},
   selectedRecipe: null,
+  userProfile: null,
   getRecipeById: (id) => get().recipes.find((recipe) => recipe.id === id),
   setSelectedRecipe: (recipe) => set({ selectedRecipe: recipe }),
   clearSelectedRecipe: () => set({ selectedRecipe: null }),
-  regenerateWeeklyMenu: () => set({ weeklyMenu: generateMenu() }),
+  setUserProfile: (profile) => set({ userProfile: profile }),
+  generateWeeklyMenu: () => {
+    const profile = get().userProfile;
+    const allRecipes = get().recipes;
+    
+    let filteredRecipes = [...allRecipes];
+
+    if (profile) {
+        // Skill level
+        if (profile.skill_level) {
+            const skillMap: Record<string, string[]> = { 'Principiante': ['fácil'], 'Intermedio': ['fácil', 'medio'], 'Avanzado': ['fácil', 'medio', 'avanzado'] };
+            const allowed = skillMap[profile.skill_level] || [];
+            if (allowed.length > 0) filteredRecipes = filteredRecipes.filter(r => allowed.includes(r.difficulty));
+        }
+
+        // Cooking time
+        if (profile.cooking_time) {
+            const timeMap: Record<string, number> = { 'Menos de 30min': 30, '30-60 min': 60, 'Más de 60min': Infinity };
+            const maxTime = timeMap[profile.cooking_time];
+            if (maxTime !== Infinity) filteredRecipes = filteredRecipes.filter(r => r.cookTime <= maxTime);
+        }
+
+        // Disliked ingredients
+        if (profile.disliked_ingredients && profile.disliked_ingredients.length > 0) {
+            const disliked = profile.disliked_ingredients.map(i => i.toLowerCase());
+            filteredRecipes = filteredRecipes.filter(recipe => !recipe.ingredients.some(ing => disliked.some(d => ing.name.toLowerCase().includes(d))));
+        }
+
+        // Allergies
+        if (profile.allergies && profile.allergies.length > 0) {
+            const allergyMap: Record<string, string[]> = { 'Soja': ['tofu', 'soja', 'miso'], 'Frutos secos': ['nueces', 'almendras', 'piñones', 'cacahuetes', 'tahini'], 'Gluten': ['pasta', 'pan', 'avena', 'trigo', 'gnocchi', 'lasaña', 'pizza'] };
+            const ingredientsToAvoid = profile.allergies.flatMap(a => allergyMap[a] || []);
+            if (ingredientsToAvoid.length > 0) {
+                filteredRecipes = filteredRecipes.filter(recipe => !recipe.ingredients.some(ing => ingredientsToAvoid.some(avoid => ing.name.toLowerCase().includes(avoid))));
+            }
+        }
+    }
+
+    set({ weeklyMenu: generateMenuFromRecipes(filteredRecipes) });
+  },
   swapMeal: (day, mealType, newRecipe) => {
     set((state) => ({
       weeklyMenu: {

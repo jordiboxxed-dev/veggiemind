@@ -6,12 +6,26 @@ import MobileHeader from "./MobileHeader";
 import MobileNav from "./MobileNav";
 import { useSession } from "@/contexts/SessionContext";
 import { Button } from "./ui/button";
+import { useRecipeStore } from "@/store/recipeStore";
+import { useEffect } from "react";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
   const isMobile = useIsMobile();
-  const { logout } = useSession();
+  const { logout, profile } = useSession();
   const navigate = useNavigate();
+  const { setUserProfile, generateWeeklyMenu, weeklyMenu } = useRecipeStore();
+
+  useEffect(() => {
+    if (profile) {
+      setUserProfile(profile);
+      // Generate menu only if it hasn't been generated yet and profile is loaded
+      if (Object.keys(weeklyMenu).length === 0) {
+        generateWeeklyMenu();
+      }
+    }
+  }, [profile, setUserProfile, generateWeeklyMenu, weeklyMenu]);
+
 
   const handleLogout = async () => {
     await logout();

@@ -2,9 +2,12 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import { Session, User } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
 
-interface Profile {
+export interface Profile {
   goal: string | null;
-  // Añadir más campos del perfil aquí en el futuro
+  allergies: string[] | null;
+  disliked_ingredients: string[] | null;
+  skill_level: string | null;
+  cooking_time: string | null;
 }
 
 interface SessionContextValue {
@@ -24,14 +27,14 @@ export const SessionProvider = ({ children }: { children: React.ReactNode }) => 
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const getSession = async () => {
+    const getSessionAndProfile = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       setSession(session);
       setUser(session?.user ?? null);
       if (session?.user) {
         const { data: userProfile } = await supabase
           .from('user_profiles')
-          .select('goal')
+          .select('goal, allergies, disliked_ingredients, skill_level, cooking_time')
           .eq('id', session.user.id)
           .single();
         setProfile(userProfile);
@@ -39,7 +42,7 @@ export const SessionProvider = ({ children }: { children: React.ReactNode }) => 
       setLoading(false);
     };
 
-    getSession();
+    getSessionAndProfile();
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (_event, session) => {
@@ -49,7 +52,7 @@ export const SessionProvider = ({ children }: { children: React.ReactNode }) => 
           setLoading(true);
           const { data: userProfile } = await supabase
             .from('user_profiles')
-            .select('goal')
+            .select('goal, allergies, disliked_ingredients, skill_level, cooking_time')
             .eq('id', session.user.id)
             .single();
           setProfile(userProfile);
