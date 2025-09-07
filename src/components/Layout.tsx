@@ -15,16 +15,19 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const { logout, profile } = useSession();
   const navigate = useNavigate();
   const { setUserProfile, generateWeeklyMenu, weeklyMenu } = useRecipeStore();
+  const isMenuGenerated = Object.keys(weeklyMenu).length > 0;
 
   useEffect(() => {
     if (profile) {
       setUserProfile(profile);
-      // Generate menu only if it hasn't been generated yet and profile is loaded
-      if (Object.keys(weeklyMenu).length === 0) {
-        generateWeeklyMenu();
-      }
     }
-  }, [profile, setUserProfile, generateWeeklyMenu, weeklyMenu]);
+  }, [profile, setUserProfile]);
+
+  useEffect(() => {
+    if (profile && !isMenuGenerated) {
+      generateWeeklyMenu();
+    }
+  }, [profile, isMenuGenerated, generateWeeklyMenu]);
 
 
   const handleLogout = async () => {
