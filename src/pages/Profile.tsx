@@ -59,21 +59,23 @@ const Profile = () => {
     const toastId = showLoading("Actualizando tu cocina...");
 
     const profileData = {
+      id: user.id,
       goal: formData.goal,
       allergies: formData.allergies,
       disliked_ingredients: formData.dislikedIngredients.split(',').map(s => s.trim()).filter(Boolean),
       skill_level: formData.skillLevel,
       cooking_time: formData.cookingTime,
+      updated_at: new Date().toISOString(),
     };
 
     const { error } = await supabase
       .from('user_profiles')
-      .update(profileData)
-      .eq('id', user.id);
+      .upsert(profileData);
     
     dismissToast(toastId);
     if (error) {
       showError("Hubo un error al guardar tus preferencias.");
+      console.error("Error updating profile:", error);
     } else {
       showSuccess("¡Tu cocina ha sido actualizada!");
       await refreshProfile();
