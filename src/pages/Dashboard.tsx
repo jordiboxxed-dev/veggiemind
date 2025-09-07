@@ -10,8 +10,8 @@ const Dashboard = () => {
 
   return (
     <AnimatedPage>
-      <div className="flex flex-col items-start w-full max-w-2xl mx-auto">
-        <div className="w-full flex justify-between items-center mb-8">
+      <div className="flex flex-col items-start w-full max-w-4xl mx-auto">
+        <div className="w-full flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
           <div>
             <h1 className="text-3xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-brand-green to-neon-cyan">
               Tu Menú Semanal
@@ -20,7 +20,7 @@ const Dashboard = () => {
               Planificado por Kaia para ti.
             </p>
           </div>
-          <Button onClick={regenerateWeeklyMenu}>
+          <Button onClick={regenerateWeeklyMenu} className="w-full sm:w-auto">
             <Sparkles className="mr-2 h-4 w-4" />
             Generar Nuevo Menú
           </Button>

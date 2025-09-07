@@ -1,14 +1,28 @@
 import { Link, useLocation } from "react-router-dom";
-import { Bot, CalendarDays, Home, UtensilsCrossed } from "lucide-react";
+import { Bot, CalendarDays, UtensilsCrossed } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useIsMobile } from "@/hooks/use-mobile";
+import MobileHeader from "./MobileHeader";
+import MobileNav from "./MobileNav";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
+  const isMobile = useIsMobile();
 
   const navItems = [
     { href: "/dashboard", label: "Menú Semanal", icon: CalendarDays },
     { href: "/recipes", label: "Recetas", icon: UtensilsCrossed },
   ];
+
+  if (isMobile) {
+    return (
+      <div className="min-h-screen w-full">
+        <MobileHeader />
+        <main className="pt-20 pb-24 px-4">{children}</main>
+        <MobileNav />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen w-full flex">
