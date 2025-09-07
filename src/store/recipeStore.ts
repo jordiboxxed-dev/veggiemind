@@ -21,6 +21,7 @@ const mockRecipes: Recipe[] = [
     cookTime: 40,
     kaiaTips: ['Añade una hoja de laurel para más sabor.', 'Un chorrito de vinagre al final realza los sabores.'],
     imageUrl: '/placeholder.svg',
+    tags: ['high-protein'],
   },
   {
     id: '2',
@@ -38,6 +39,7 @@ const mockRecipes: Recipe[] = [
     cookTime: 15,
     kaiaTips: ['Usa sal negra (kala namak) para un sabor a huevo.', 'No cocines el tofu en exceso para que no se seque.'],
     imageUrl: '/placeholder.svg',
+    tags: ['low-calorie', 'high-protein'],
   },
   {
     id: '3',
@@ -56,6 +58,7 @@ const mockRecipes: Recipe[] = [
     cookTime: 20,
     kaiaTips: ['Tuesta la quinoa antes de cocerla para un sabor más intenso.', 'Deja que la ensalada repose 10 minutos antes de servir.'],
     imageUrl: '/placeholder.svg',
+    tags: ['low-calorie', 'balanced'],
   },
   {
     id: '4',
@@ -75,6 +78,7 @@ const mockRecipes: Recipe[] = [
     cookTime: 25,
     kaiaTips: ['Sirve con arroz basmati para una comida completa.', 'Añade un poco de zumo de lima al final para avivar los sabores.'],
     imageUrl: '/placeholder.svg',
+    tags: ['low-calorie', 'balanced'],
   },
   {
     id: '5',
@@ -94,6 +98,7 @@ const mockRecipes: Recipe[] = [
     cookTime: 20,
     kaiaTips: ['Calienta las tortillas en una sartén antes de servir.', 'Añade aguacate en rodajas para más cremosidad y grasas saludables.'],
     imageUrl: '/placeholder.svg',
+    tags: ['low-calorie', 'balanced'],
   },
   {
     id: '6',
@@ -111,6 +116,7 @@ const mockRecipes: Recipe[] = [
     cookTime: 50,
     kaiaTips: ['Asar los tomates intensifica su dulzura.', 'Añade un chorrito de leche de coco para una sopa más cremosa.'],
     imageUrl: '/placeholder.svg',
+    tags: ['low-calorie'],
   },
   {
     id: '7',
@@ -129,6 +135,7 @@ const mockRecipes: Recipe[] = [
     cookTime: 15,
     kaiaTips: ['Guarda un poco del agua de cocción de la pasta para aligerar la salsa si es necesario.', 'El zumo de limón evita que el aguacate se oxide.'],
     imageUrl: '/placeholder.svg',
+    tags: ['balanced'],
   },
   {
     id: '8',
@@ -146,6 +153,7 @@ const mockRecipes: Recipe[] = [
     cookTime: 30,
     kaiaTips: ['Seca bien los frijoles para que la hamburguesa no quede blanda.', 'Puedes hornear las hamburguesas en lugar de freírlas para una opción más saludable.'],
     imageUrl: '/placeholder.svg',
+    tags: ['high-protein'],
   },
   {
     id: '9',
@@ -165,6 +173,7 @@ const mockRecipes: Recipe[] = [
     cookTime: 35,
     kaiaTips: ['La clave de un buen Buddha Bowl es la variedad de texturas y colores.', 'Prepara los componentes por adelantado para un montaje rápido.'],
     imageUrl: '/placeholder.svg',
+    tags: ['high-protein'],
   },
   {
     id: '10',
@@ -184,6 +193,7 @@ const mockRecipes: Recipe[] = [
     cookTime: 45,
     kaiaTips: ['El chili sabe aún mejor al día siguiente.', 'Sírvelo con aguacate, cilantro y "crema agria" vegana.'],
     imageUrl: '/placeholder.svg',
+    tags: ['high-protein'],
   },
   {
     id: '11',
@@ -202,6 +212,7 @@ const mockRecipes: Recipe[] = [
     cookTime: 75,
     kaiaTips: ['Prensa bien el tofu para quitar el exceso de agua y obtener una mejor textura de "ricotta".', 'Deja reposar la lasaña 10 minutos antes de cortarla.'],
     imageUrl: '/placeholder.svg',
+    tags: ['high-protein'],
   },
   {
     id: '12',
@@ -220,6 +231,7 @@ const mockRecipes: Recipe[] = [
     cookTime: 40,
     kaiaTips: ['La clave del risotto es añadir el caldo poco a poco y remover constantemente.', 'Termina con un chorrito de aceite de trufa para un toque gourmet.'],
     imageUrl: '/placeholder.svg',
+    tags: ['balanced'],
   },
   {
     id: '13',
@@ -240,6 +252,7 @@ const mockRecipes: Recipe[] = [
     cookTime: 30,
     kaiaTips: ['No remojes los fideos de arroz en exceso o se volverán blandos.', 'Prensa el tofu para que quede más crujiente al freírlo.'],
     imageUrl: '/placeholder.svg',
+    tags: ['high-protein'],
   },
   {
     id: '14',
@@ -256,6 +269,7 @@ const mockRecipes: Recipe[] = [
     cookTime: 10,
     kaiaTips: ['Nunca hiervas la sopa una vez añadido el miso, ya que mataría sus probióticos.', 'Disuelve la pasta de miso en un poco de caldo caliente antes de añadirla a la olla.'],
     imageUrl: '/placeholder.svg',
+    tags: ['low-calorie'],
   },
   {
     id: '15',
@@ -273,6 +287,7 @@ const mockRecipes: Recipe[] = [
     cookTime: 15,
     kaiaTips: ['Calienta el pan de pita para que sea más flexible.', 'Añade un poco de salsa tahini o yogur vegano para más cremosidad.'],
     imageUrl: '/placeholder.svg',
+    tags: ['balanced'],
   },
   {
     id: '16',
@@ -291,6 +306,7 @@ const mockRecipes: Recipe[] = [
     cookTime: 25,
     kaiaTips: ['Precalienta bien el horno con la bandeja dentro para una base más crujiente.', 'Un chorrito de aceite de oliva y orégano seco antes de hornear le da un gran sabor.'],
     imageUrl: '/placeholder.svg',
+    tags: ['high-protein'],
   },
   {
     id: '17',
@@ -308,6 +324,7 @@ const mockRecipes: Recipe[] = [
     cookTime: 20,
     kaiaTips: ['Fríe las hojas de salvia en un poco de aceite hasta que estén crujientes para decorar.', 'Tuesta unas semillas de calabaza para añadir un toque crujiente.'],
     imageUrl: '/placeholder.svg',
+    tags: ['balanced'],
   },
   {
     id: '18',
@@ -326,6 +343,7 @@ const mockRecipes: Recipe[] = [
     cookTime: 60,
     kaiaTips: ['"Asusta" las berenjenas con sal para quitarles el amargor antes de cocinarlas.', 'Añade pasas y piñones al relleno para un toque agridulce.'],
     imageUrl: '/placeholder.svg',
+    tags: ['low-calorie', 'high-protein'],
   },
 ];
 

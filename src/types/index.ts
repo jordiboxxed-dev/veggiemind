@@ -19,4 +19,5 @@ export interface Recipe {
   cookTime: number; // in minutes
   kaiaTips: string[];
   imageUrl: string;
+  tags: string[];
 }
