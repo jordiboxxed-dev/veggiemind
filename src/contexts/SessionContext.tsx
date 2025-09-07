@@ -28,18 +28,23 @@ export const SessionProvider = ({ children }: { children: React.ReactNode }) => 
 
   useEffect(() => {
     const getSessionAndProfile = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      setSession(session);
-      setUser(session?.user ?? null);
-      if (session?.user) {
-        const { data: userProfile } = await supabase
-          .from('user_profiles')
-          .select('goal, allergies, disliked_ingredients, skill_level, cooking_time')
-          .eq('id', session.user.id)
-          .single();
-        setProfile(userProfile);
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        setSession(session);
+        setUser(session?.user ?? null);
+        if (session?.user) {
+          const { data: userProfile } = await supabase
+            .from('user_profiles')
+            .select('goal, allergies, disliked_ingredients, skill_level, cooking_time')
+            .eq('id', session.user.id)
+            .single();
+          setProfile(userProfile);
+        }
+      } catch (error) {
+        console.error("Error fetching initial session:", error);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     };
 
     getSessionAndProfile();
@@ -50,15 +55,21 @@ export const SessionProvider = ({ children }: { children: React.ReactNode }) => 
         setUser(session?.user ?? null);
         if (session?.user) {
           setLoading(true);
-          const { data: userProfile } = await supabase
-            .from('user_profiles')
-            .select('goal, allergies, disliked_ingredients, skill_level, cooking_time')
-            .eq('id', session.user.id)
-            .single();
-          setProfile(userProfile);
-          setLoading(false);
+          try {
+            const { data: userProfile } = await supabase
+              .from('user_profiles')
+              .select('goal, allergies, disliked_ingredients, skill_level, cooking_time')
+              .eq('id', session.user.id)
+              .single();
+            setProfile(userProfile);
+          } catch (error) {
+            console.error("Error fetching profile on auth state change:", error);
+          } finally {
+            setLoading(false);
+          }
         } else {
           setProfile(null);
+          setLoading(false);
         }
       }
     );
