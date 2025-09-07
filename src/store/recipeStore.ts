@@ -376,13 +376,16 @@ const shuffle = (array: Recipe[]) => {
 
 const generateMenuFromRecipes = (recipes: Recipe[]): Record<string, { breakfast: Recipe; lunch: Recipe; dinner: Recipe }> => {
     if (recipes.length === 0) {
-        // Fallback to all recipes if filtering results in an empty list
         recipes = mockRecipes;
     }
     
     let paddedRecipes = [...recipes];
-    while (paddedRecipes.length < 9) {
-        paddedRecipes.push(...recipes);
+    // OPTIMIZED: Use a more efficient loop to pad the recipes array.
+    if (paddedRecipes.length > 0 && paddedRecipes.length < 9) {
+      const originalLength = paddedRecipes.length;
+      for (let i = 0; paddedRecipes.length < 9; i++) {
+        paddedRecipes.push(paddedRecipes[i % originalLength]);
+      }
     }
 
     const shuffled = shuffle(paddedRecipes);
