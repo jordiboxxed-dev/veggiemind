@@ -114,11 +114,27 @@ const Onboarding = () => {
             <p className="mt-2 mb-8 text-lg text-foreground/80">Personalizaré tu plan para ayudarte a conseguirlo.</p>
             <div className="w-full space-y-4">
               {goals.map((g) => (
-                <GlassCard key={g.title} className={cn("p-6 w-full text-left hover:border-brand-green/50 transition-all cursor-pointer", formData.goal === g.title && "border-brand-green")} onClick={() => { handleUpdateData('goal', g.title); setTimeout(nextStep, 200); }}>
+                <GlassCard 
+                  key={g.title} 
+                  className={cn(
+                    "p-6 w-full text-left hover:border-brand-green/50 transition-all cursor-pointer", 
+                    formData.goal === g.title && "border-brand-green"
+                  )} 
+                  onClick={() => handleUpdateData('goal', g.title)}
+                >
                   <h3 className="font-bold text-lg text-foreground">{g.title}</h3>
                   <p className="text-foreground/70">{g.description}</p>
                 </GlassCard>
               ))}
+            </div>
+            <div className="mt-8 w-full flex justify-end">
+              <Button 
+                onClick={nextStep} 
+                disabled={!formData.goal}
+                className={cn(!formData.goal && "opacity-50 cursor-not-allowed")}
+              >
+                Siguiente
+              </Button>
             </div>
           </>
         )}
@@ -169,11 +185,30 @@ const Onboarding = () => {
                 <p className="mt-2 mb-8 text-lg text-foreground/80">Esto me ayudará a sugerirte recetas que disfrutes preparando.</p>
                 <div className="w-full space-y-4">
                     {skillLevels.map((s) => (
-                        <GlassCard key={s.title} className={cn("p-6 w-full text-left hover:border-brand-green/50 transition-all cursor-pointer", formData.skillLevel === s.title && "border-brand-green")} onClick={() => { handleUpdateData('skillLevel', s.title); setTimeout(nextStep, 200); }}>
+                        <GlassCard 
+                          key={s.title} 
+                          className={cn(
+                            "p-6 w-full text-left hover:border-brand-green/50 transition-all cursor-pointer", 
+                            formData.skillLevel === s.title && "border-brand-green"
+                          )} 
+                          onClick={() => handleUpdateData('skillLevel', s.title)}
+                        >
                             <h3 className="font-bold text-lg text-foreground">{s.title}</h3>
                             <p className="text-foreground/70">{s.description}</p>
                         </GlassCard>
                     ))}
+                </div>
+                <div className="mt-8 w-full flex justify-between">
+                  <Button variant="ghost" onClick={prevStep}>
+                    <ArrowLeft className="mr-2 h-4 w-4" /> Atrás
+                  </Button>
+                  <Button 
+                    onClick={nextStep} 
+                    disabled={!formData.skillLevel}
+                    className={cn(!formData.skillLevel && "opacity-50 cursor-not-allowed")}
+                  >
+                    Siguiente
+                  </Button>
                 </div>
             </>
         )}
@@ -184,7 +219,14 @@ const Onboarding = () => {
                 <p className="mt-2 mb-8 text-lg text-foreground/80">Para tus comidas principales como almuerzo o cena.</p>
                 <div className="w-full space-y-4">
                     {cookingTimes.map((t) => (
-                        <GlassCard key={t.title} className={cn("p-6 w-full text-left hover:border-brand-green/50 transition-all cursor-pointer", formData.cookingTime === t.title && "border-brand-green")} onClick={() => { handleUpdateData('cookingTime', t.title); }}>
+                        <GlassCard 
+                          key={t.title} 
+                          className={cn(
+                            "p-6 w-full text-left hover:border-brand-green/50 transition-all cursor-pointer", 
+                            formData.cookingTime === t.title && "border-brand-green"
+                          )} 
+                          onClick={() => handleUpdateData('cookingTime', t.title)}
+                        >
                             <h3 className="font-bold text-lg text-foreground">{t.title}</h3>
                             <p className="text-foreground/70">{t.description}</p>
                         </GlassCard>
@@ -194,7 +236,14 @@ const Onboarding = () => {
                   <Button variant="ghost" onClick={prevStep}>
                     <ArrowLeft className="mr-2 h-4 w-4" /> Atrás
                   </Button>
-                  <Button onClick={handleSubmit} className="bg-brand-green text-background font-bold shadow-[0_0_20px_theme('colors.brand-green/50%')] hover:bg-brand-green/90">
+                  <Button 
+                    onClick={handleSubmit} 
+                    disabled={!formData.cookingTime}
+                    className={cn(
+                      "bg-brand-green text-background font-bold shadow-[0_0_20px_theme('colors.brand-green/50%')] hover:bg-brand-green/90",
+                      !formData.cookingTime && "opacity-50 cursor-not-allowed"
+                    )}
+                  >
                     Finalizar <Check className="ml-2 h-4 w-4" />
                   </Button>
                 </div>
@@ -202,6 +251,12 @@ const Onboarding = () => {
         )}
 
         {step !== 1 && step !== 4 && step !== 5 && (
+          <div className="mt-8 w-full">
+            <Progress value={progress} className="w-full h-2 bg-white/10 [&>div]:bg-brand-green" />
+          </div>
+        )}
+        
+        {(step === 1 || step === 4 || step === 5) && (
           <div className="mt-8 w-full">
             <Progress value={progress} className="w-full h-2 bg-white/10 [&>div]:bg-brand-green" />
           </div>

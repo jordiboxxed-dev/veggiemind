@@ -41,6 +41,7 @@ const Login = () => {
             appearance={{ theme: ThemeSupa }}
             providers={[]}
             theme="dark"
+            redirectTo="https://veggiemind.vercel.app/"
             localization={{
               variables: {
                 sign_in: {
