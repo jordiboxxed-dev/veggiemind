@@ -23,7 +23,7 @@ const Index = () => {
           </p>
         </GlassCard>
 
-        <Link to="/onboarding" className="mt-8 w-full">
+        <Link to="/login" className="mt-8 w-full">
           <Button className="w-full bg-brand-green text-background font-bold text-lg py-6 rounded-full shadow-[0_0_20px_theme('colors.brand-green/50%')] hover:bg-brand-green/90 hover:scale-105 transition-all duration-300">
             Comenzar
           </Button>

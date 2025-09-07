@@ -1,13 +1,22 @@
 import GlassCard from "@/components/GlassCard";
 import { KaiaAvatar } from "@/components/KaiaAvatar";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "@/integrations/supabase/client";
+import { showError, showSuccess } from "@/utils/toast";
 
 const Onboarding = () => {
   const navigate = useNavigate();
 
-  const handleGoalSelection = () => {
-    // En el futuro, aquí guardaríamos la preferencia del usuario.
-    navigate("/dashboard");
+  const handleGoalSelection = async (goal: string) => {
+    const { error } = await supabase.rpc('update_user_goal', { new_goal: goal });
+
+    if (error) {
+      showError("Hubo un error al guardar tu objetivo.");
+      console.error(error);
+    } else {
+      showSuccess("¡Objetivo guardado!");
+      navigate("/dashboard");
+    }
   };
 
   const goals = [
@@ -32,7 +41,7 @@ const Onboarding = () => {
             <GlassCard
               key={goal.title}
               className="p-6 w-full text-left hover:border-brand-green/50 transition-all cursor-pointer"
-              onClick={handleGoalSelection}
+              onClick={() => handleGoalSelection(goal.title)}
             >
               <h3 className="font-bold text-lg text-foreground">{goal.title}</h3>
               <p className="text-foreground/70">{goal.description}</p>

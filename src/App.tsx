@@ -9,40 +9,50 @@ import Dashboard from "./pages/Dashboard";
 import Recipes from "./pages/Recipes";
 import NotFound from "./pages/NotFound";
 import Layout from "./components/Layout";
+import Login from "./pages/Login";
+import { SessionProvider } from "./contexts/SessionContext";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const queryClient = new QueryClient();
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/onboarding" element={<Onboarding />} />
-          <Route 
-            path="/dashboard" 
-            element={
-              <Layout>
-                <Dashboard />
-              </Layout>
-            } 
-          />
-          <Route 
-            path="/recipes" 
-            element={
-              <Layout>
-                <Recipes />
-              </Layout>
-            } 
-          />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
+  <SessionProvider>
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/login" element={<Login />} />
+            
+            <Route element={<ProtectedRoute />}>
+              <Route path="/onboarding" element={<Onboarding />} />
+              <Route 
+                path="/dashboard" 
+                element={
+                  <Layout>
+                    <Dashboard />
+                  </Layout>
+                } 
+              />
+              <Route 
+                path="/recipes" 
+                element={
+                  <Layout>
+                    <Recipes />
+                  </Layout>
+                } 
+              />
+            </Route>
+
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
+  </SessionProvider>
 );
 
 export default App;
