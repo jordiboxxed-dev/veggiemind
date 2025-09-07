@@ -27,43 +27,30 @@ export const SessionProvider = ({ children }: { children: React.ReactNode }) => 
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const getSessionAndProfile = async () => {
-      try {
-        const { data: { session } } = await supabase.auth.getSession();
-        setSession(session);
-        setUser(session?.user ?? null);
-        if (session?.user) {
-          const { data: userProfile } = await supabase
-            .from('user_profiles')
-            .select('goal, allergies, disliked_ingredients, skill_level, cooking_time')
-            .eq('id', session.user.id)
-            .single();
-          setProfile(userProfile);
-        }
-      } catch (error) {
-        console.error("Error fetching initial session:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    getSessionAndProfile();
+    setLoading(true);
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (_event, session) => {
         setSession(session);
         setUser(session?.user ?? null);
+
         if (session?.user) {
-          setLoading(true);
           try {
-            const { data: userProfile } = await supabase
+            const { data: userProfile, error } = await supabase
               .from('user_profiles')
               .select('goal, allergies, disliked_ingredients, skill_level, cooking_time')
               .eq('id', session.user.id)
               .single();
-            setProfile(userProfile);
-          } catch (error) {
-            console.error("Error fetching profile on auth state change:", error);
+            
+            if (error) {
+              console.error("Error fetching profile:", error);
+              setProfile(null);
+            } else {
+              setProfile(userProfile);
+            }
+          } catch (e) {
+            console.error("Exception fetching profile:", e);
+            setProfile(null);
           } finally {
             setLoading(false);
           }
