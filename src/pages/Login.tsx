@@ -5,16 +5,25 @@ import { useSession } from '@/contexts/SessionContext';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { KaiaAvatar } from '@/components/KaiaAvatar';
+import GlassCard from '@/components/GlassCard';
 
 const Login = () => {
-  const { session } = useSession();
+  const { session, loading } = useSession();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (session) {
+    if (session && !loading) {
       navigate('/dashboard');
     }
-  }, [session, navigate]);
+  }, [session, loading, navigate]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin border-brand-green"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen w-full flex flex-col items-center justify-center p-4 font-sans">
@@ -26,7 +35,7 @@ const Login = () => {
         <p className="mt-2 mb-8 text-lg text-foreground/80">
           Tu chef personal de nutrición vegana.
         </p>
-        <div className="w-full">
+        <GlassCard className="w-full p-6">
           <Auth
             supabaseClient={supabase}
             appearance={{ theme: ThemeSupa }}
@@ -56,7 +65,7 @@ const Login = () => {
               },
             }}
           />
-        </div>
+        </GlassCard>
       </main>
     </div>
   );

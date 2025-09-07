@@ -53,13 +53,17 @@ export const SessionProvider = ({ children }: { children: React.ReactNode }) => 
 
   useEffect(() => {
     const fetchInitialSession = async () => {
-      setLoading(true);
-      const { data: { session } } = await supabase.auth.getSession();
-      setSession(session);
-      const currentUser = session?.user ?? null;
-      setUser(currentUser);
-      await fetchProfile(currentUser);
-      setLoading(false);
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        setSession(session);
+        const currentUser = session?.user ?? null;
+        setUser(currentUser);
+        await fetchProfile(currentUser);
+      } catch (error) {
+        console.error("Error fetching initial session:", error);
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchInitialSession();
@@ -70,9 +74,7 @@ export const SessionProvider = ({ children }: { children: React.ReactNode }) => 
         const currentUser = session?.user ?? null;
         setUser(currentUser);
         if (currentUser) {
-          setLoading(true);
           await fetchProfile(currentUser);
-          setLoading(false);
         }
       }
     );
@@ -84,6 +86,9 @@ export const SessionProvider = ({ children }: { children: React.ReactNode }) => 
 
   const logout = async () => {
     await supabase.auth.signOut();
+    setSession(null);
+    setUser(null);
+    setProfile(null);
   };
 
   const refreshProfile = useCallback(async () => {
