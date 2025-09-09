@@ -52,24 +52,7 @@ export const SessionProvider = ({ children }: { children: React.ReactNode }) => 
   }, []);
 
   useEffect(() => {
-    const fetchInitialSession = async () => {
-      try {
-        const { data: { session } } = await supabase.auth.getSession();
-        setSession(session);
-        const currentUser = session?.user ?? null;
-        setUser(currentUser);
-        if (currentUser) {
-          await fetchProfile(currentUser);
-        }
-      } catch (error) {
-        console.error("Error fetching initial session:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchInitialSession();
-
+    setLoading(true);
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (_event, session) => {
         setSession(session);
@@ -80,6 +63,7 @@ export const SessionProvider = ({ children }: { children: React.ReactNode }) => 
         } else {
           setProfile(null);
         }
+        setLoading(false);
       }
     );
 
