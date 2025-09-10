@@ -4,6 +4,65 @@ import { Profile } from '@/contexts/SessionContext';
 
 // Mock Data
 const mockRecipes: Recipe[] = [
+  // --- BREAKFASTS ---
+  {
+    id: '19',
+    title: 'Avena Nocturna con Chía y Frutos Rojos',
+    ingredients: [
+      { name: 'Avena en hojuelas', quantity: '1/2 taza' },
+      { name: 'Semillas de chía', quantity: '1 cda' },
+      { name: 'Leche de almendras', quantity: '1 taza' },
+      { name: 'Sirope de arce', quantity: '1 cdta' },
+      { name: 'Frutos rojos congelados', quantity: '1/2 taza' },
+    ],
+    nutrition: { calories: 350, protein: 10, carbs: 55, fat: 10 },
+    difficulty: 'fácil',
+    cookTime: 5,
+    servings: 1,
+    preparation: "En un frasco, mezcla la avena, las semillas de chía, la leche de almendras y el sirope de arce. Remueve bien. Añade los frutos rojos por encima. Cierra el frasco y déjalo en la nevera toda la noche. A la mañana siguiente, simplemente remueve y disfruta.",
+    kaiaTips: ['Puedes añadir un poco de canela para más sabor.', 'Usa cualquier fruta que te guste, fresca o congelada.'],
+    imageUrl: '/placeholder.svg',
+    tags: ['breakfast', 'gluten-free', 'soy-free'],
+  },
+  {
+    id: '20',
+    title: 'Tostadas de Aguacate con Tomate y Germinados',
+    ingredients: [
+      { name: 'Pan integral', quantity: '2 rebanadas' },
+      { name: 'Aguacate maduro', quantity: '1/2' },
+      { name: 'Tomate cherry', quantity: '4' },
+      { name: 'Germinados (alfalfa, brócoli...)', quantity: 'un puñado' },
+      { name: 'Zumo de lima', quantity: 'un chorrito' },
+    ],
+    nutrition: { calories: 300, protein: 8, carbs: 40, fat: 15 },
+    difficulty: 'fácil',
+    cookTime: 5,
+    servings: 1,
+    preparation: "Tuesta las rebanadas de pan. Mientras, machaca el aguacate con un tenedor y mézclalo con el zumo de lima, sal y pimienta. Unta el aguacate sobre las tostadas. Corta los tomates cherry por la mitad y colócalos encima. Termina con una generosa cantidad de germinados.",
+    kaiaTips: ['Añade unas semillas de sésamo o chile en escamas por encima para un toque extra.', 'Usa un buen pan de masa madre para una mejor experiencia.'],
+    imageUrl: '/placeholder.svg',
+    tags: ['breakfast', 'soy-free', 'nut-free'],
+  },
+  {
+    id: '21',
+    title: 'Batido Verde Energizante',
+    ingredients: [
+      { name: 'Espinacas frescas', quantity: '1 taza grande' },
+      { name: 'Plátano congelado', quantity: '1' },
+      { name: 'Leche de soja', quantity: '1 taza' },
+      { name: 'Mantequilla de almendras', quantity: '1 cda' },
+      { name: 'Semillas de lino molidas', quantity: '1 cda' },
+    ],
+    nutrition: { calories: 400, protein: 15, carbs: 50, fat: 18 },
+    difficulty: 'fácil',
+    cookTime: 5,
+    servings: 1,
+    preparation: "Añade todos los ingredientes a una batidora de alta velocidad. Bate hasta que la mezcla esté completamente suave y cremosa. Si está muy espeso, añade un poco más de leche de soja. Sirve inmediatamente.",
+    kaiaTips: ['Congelar el plátano hace que el batido quede más frío y cremoso.', 'Puedes añadir una cucharada de proteína vegana en polvo para un extra de nutrientes.'],
+    imageUrl: '/placeholder.svg',
+    tags: ['breakfast', 'gluten-free'],
+  },
+  // --- MAIN DISHES ---
   {
     id: '1',
     title: 'Lentejas Estofadas',
@@ -20,6 +79,7 @@ const mockRecipes: Recipe[] = [
     nutrition: { calories: 450, protein: 25, carbs: 60, fat: 10 },
     difficulty: 'fácil',
     cookTime: 40,
+    servings: 4,
     preparation: "En una olla, sofríe la cebolla, zanahoria y pimiento picados. Añade la patata en cubos, las lentejas, el laurel y el pimentón. Cubre con agua, lleva a ebullición y luego cocina a fuego lento por 35-40 minutos hasta que las lentejas estén tiernas. Sazona al gusto.",
     kaiaTips: ['Añade una hoja de laurel para más sabor.', 'Un chorrito de vinagre al final realza los sabores.'],
     imageUrl: '/placeholder.svg',
@@ -39,6 +99,7 @@ const mockRecipes: Recipe[] = [
     nutrition: { calories: 300, protein: 20, carbs: 10, fat: 20 },
     difficulty: 'fácil',
     cookTime: 15,
+    servings: 1,
     preparation: "Desmenuza el tofu con un tenedor. En una sartén caliente, saltéalo con la cúrcuma, la sal negra y la levadura nutricional. Añade la leche de soja para darle una textura más cremosa y, al final, incorpora las espinacas hasta que se ablanden. Sirve inmediatamente.",
     kaiaTips: ['Usa sal negra (kala namak) para un sabor a huevo.', 'No cocines el tofu en exceso para que no se seque.'],
     imageUrl: '/placeholder.svg',
@@ -59,6 +120,7 @@ const mockRecipes: Recipe[] = [
     nutrition: { calories: 350, protein: 15, carbs: 50, fat: 12 },
     difficulty: 'fácil',
     cookTime: 20,
+    servings: 2,
     preparation: "Cuece la quinoa según las instrucciones del paquete y déjala enfriar. Mientras, pica finamente el pepino, los tomates, el pimiento y el perejil. En un bol grande, mezcla la quinoa fría con las verduras picadas y las aceitunas. Aliña con zumo de limón, aceite de oliva, sal y pimienta.",
     kaiaTips: ['Tuesta la quinoa antes de cocerla para un sabor más intenso.', 'Deja que la ensalada repose 10 minutos antes de servir.'],
     imageUrl: '/placeholder.svg',
@@ -80,6 +142,7 @@ const mockRecipes: Recipe[] = [
     nutrition: { calories: 400, protein: 15, carbs: 50, fat: 18 },
     difficulty: 'fácil',
     cookTime: 25,
+    servings: 2,
     preparation: "Sofríe la cebolla, el ajo y el jengibre en una sartén grande. Añade el curry en polvo y cocina por un minuto. Incorpora el tomate triturado, la leche de coco y los garbanzos. Cocina a fuego lento por 15 minutos. Finalmente, añade las espinacas y remueve hasta que se ablanden.",
     kaiaTips: ['Sirve con arroz basmati para una comida completa.', 'Añade un poco de zumo de lima al final para avivar los sabores.'],
     imageUrl: '/placeholder.svg',
@@ -101,6 +164,7 @@ const mockRecipes: Recipe[] = [
     nutrition: { calories: 380, protein: 18, carbs: 65, fat: 5 },
     difficulty: 'fácil',
     cookTime: 20,
+    servings: 2,
     preparation: "Para el relleno, calienta las lentejas cocidas con el comino y el chile en polvo. Para el pico de gallo, pica finamente el tomate, la cebolla y el cilantro, y mézclalo con el zumo de lima y sal. Calienta las tortillas y rellénalas con las lentejas y el pico de gallo.",
     kaiaTips: ['Calienta las tortillas en una sartén antes de servir.', 'Añade aguacate en rodajas para más cremosidad y grasas saludables.'],
     imageUrl: '/placeholder.svg',
@@ -120,6 +184,7 @@ const mockRecipes: Recipe[] = [
     nutrition: { calories: 250, protein: 8, carbs: 30, fat: 12 },
     difficulty: 'medio',
     cookTime: 50,
+    servings: 4,
     preparation: "Corta los tomates y la cebolla en cuartos. Ponlos en una bandeja de horno con los dientes de ajo, rocía con aceite de oliva y asa a 200°C por 30 minutos. Transfiere todo a una olla, añade el caldo de verduras y la albahaca. Tritura hasta obtener una crema suave y calienta antes de servir.",
     kaiaTips: ['Asar los tomates intensifica su dulzura.', 'Añade un chorrito de leche de coco para una sopa más cremosa.'],
     imageUrl: '/placeholder.svg',
@@ -140,6 +205,7 @@ const mockRecipes: Recipe[] = [
     nutrition: { calories: 550, protein: 18, carbs: 70, fat: 25 },
     difficulty: 'fácil',
     cookTime: 15,
+    servings: 2,
     preparation: "Cuece la pasta según las instrucciones. Mientras, en una batidora, tritura el aguacate, la albahaca, los piñones, el zumo de limón, el ajo y la levadura nutricional hasta obtener una salsa cremosa. Escurre la pasta (reservando un poco de agua de cocción) y mézclala con el pesto. Añade agua de cocción si es necesario para aligerar.",
     kaiaTips: ['Guarda un poco del agua de cocción de la pasta para aligerar la salsa si es necesario.', 'El zumo de limón evita que el aguacate se oxide.'],
     imageUrl: '/placeholder.svg',
@@ -159,6 +225,7 @@ const mockRecipes: Recipe[] = [
     nutrition: { calories: 420, protein: 20, carbs: 75, fat: 8 },
     difficulty: 'medio',
     cookTime: 30,
+    servings: 4,
     preparation: "En un bol, machaca los frijoles negros. Añade la avena, la cebolla picada y las especias. Mezcla bien hasta formar una masa manejable. Divide la masa en 4 porciones y forma las hamburguesas. Cocínalas en una sartén con un poco de aceite, 4-5 minutos por cada lado, hasta que estén doradas. Sírvelas en pan con tus toppings favoritos.",
     kaiaTips: ['Seca bien los frijoles para que la hamburguesa no quede blanda.', 'Puedes hornear las hamburguesas en lugar de freírlas para una opción más saludable.'],
     imageUrl: '/placeholder.svg',
@@ -180,6 +247,7 @@ const mockRecipes: Recipe[] = [
     nutrition: { calories: 600, protein: 22, carbs: 80, fat: 25 },
     difficulty: 'fácil',
     cookTime: 35,
+    servings: 2,
     preparation: "Monta el bowl colocando una base de espinacas y quinoa. Añade los garbanzos y el boniato asados, y el aguacate en rodajas. Para el aderezo, mezcla el tahini, zumo de limón, sirope de arce y un poco de agua hasta obtener la consistencia deseada. Rocía el aderezo sobre el bowl antes de servir.",
     kaiaTips: ['La clave de un buen Buddha Bowl es la variedad de texturas y colores.', 'Prepara los componentes por adelantado para un montaje rápido.'],
     imageUrl: '/placeholder.svg',
@@ -201,6 +269,7 @@ const mockRecipes: Recipe[] = [
     nutrition: { calories: 450, protein: 30, carbs: 70, fat: 5 },
     difficulty: 'fácil',
     cookTime: 45,
+    servings: 4,
     preparation: "Primero, hidrata la soja texturizada en caldo de verduras caliente. Sofríe la cebolla y el pimiento picados en una olla grande. Añade la soja hidratada y las especias, y cocina por 5 minutos. Incorpora el tomate triturado y los frijoles. Cocina a fuego lento durante al menos 30 minutos para que los sabores se integren.",
     kaiaTips: ['El chili sabe aún mejor al día siguiente.', 'Sírvelo con aguacate, cilantro y "crema agria" vegana.'],
     imageUrl: '/placeholder.svg',
@@ -221,6 +290,7 @@ const mockRecipes: Recipe[] = [
     nutrition: { calories: 500, protein: 25, carbs: 65, fat: 18 },
     difficulty: 'avanzado',
     cookTime: 75,
+    servings: 6,
     preparation: "Prepara la 'ricotta' triturando el tofu con levadura nutricional, albahaca y sal. Corta las verduras en láminas finas y ásalas ligeramente. Monta la lasaña en una fuente alternando capas de salsa de tomate, láminas de pasta, verduras y 'ricotta' de tofu. Termina con una capa de salsa y hornea a 180°C durante 45 minutos.",
     kaiaTips: ['Prensa bien el tofu para quitar el exceso de agua y obtener una mejor textura de "ricotta".', 'Deja reposar la lasaña 10 minutos antes de cortarla.'],
     imageUrl: '/placeholder.svg',
@@ -241,6 +311,7 @@ const mockRecipes: Recipe[] = [
     nutrition: { calories: 480, protein: 15, carbs: 85, fat: 8 },
     difficulty: 'avanzado',
     cookTime: 40,
+    servings: 2,
     preparation: "Sofríe la cebolla picada. Añade el arroz y tuéstalo por un minuto. Vierte el vino blanco y remueve hasta que se evapore. Comienza a añadir el caldo caliente, cucharón a cucharón, sin dejar de remover, esperando que se absorba antes de añadir más. A mitad de cocción, añade los champiñones y espárragos troceados. Al final, incorpora la levadura nutricional.",
     kaiaTips: ['La clave del risotto es añadir el caldo poco a poco y remover constantemente.', 'Termina con un chorrito de aceite de trufa para un toque gourmet.'],
     imageUrl: '/placeholder.svg',
@@ -263,6 +334,7 @@ const mockRecipes: Recipe[] = [
     nutrition: { calories: 550, protein: 22, carbs: 70, fat: 20 },
     difficulty: 'medio',
     cookTime: 30,
+    servings: 2,
     preparation: "Remoja los fideos de arroz según las instrucciones. Prepara la salsa mezclando la salsa de soja, sirope de arce, zumo de lima y sriracha. Saltea el tofu en cubos hasta que esté dorado. Añade los fideos escurridos y la salsa a la sartén. Incorpora los brotes de soja y la cebolleta. Sirve con cacahuetes picados por encima.",
     kaiaTips: ['No remojes los fideos de arroz en exceso o se volverán blandos.', 'Prensa el tofu para que quede más crujiente al freírlo.'],
     imageUrl: '/placeholder.svg',
@@ -281,6 +353,7 @@ const mockRecipes: Recipe[] = [
     nutrition: { calories: 150, protein: 10, carbs: 15, fat: 5 },
     difficulty: 'fácil',
     cookTime: 10,
+    servings: 2,
     preparation: "Remoja el alga wakame en agua. Calienta las 4 tazas de agua en una olla sin que llegue a hervir. En un bol pequeño, disuelve la pasta de miso con un poco del agua caliente. Vierte la mezcla de miso en la olla. Añade el tofu sedoso en cubos y el wakame escurrido. Calienta suavemente y sirve con cebolleta picada.",
     kaiaTips: ['Nunca hiervas la sopa una vez añadido el miso, ya que mataría sus probióticos.', 'Disuelve la pasta de miso en un poco de caldo caliente antes de añadirla a la olla.'],
     imageUrl: '/placeholder.svg',
@@ -300,6 +373,7 @@ const mockRecipes: Recipe[] = [
     nutrition: { calories: 450, protein: 15, carbs: 60, fat: 18 },
     difficulty: 'fácil',
     cookTime: 15,
+    servings: 4,
     preparation: "Calienta el falafel según las instrucciones. Calienta ligeramente el pan de pita o las tortillas. Unta una capa generosa de hummus en cada pan. Añade la lechuga, el tomate, el pepino y el falafel. Enrolla el wrap y sírvelo inmediatamente.",
     kaiaTips: ['Calienta el pan de pita para que sea más flexible.', 'Añade un poco de salsa tahini o yogur vegano para más cremosidad.'],
     imageUrl: '/placeholder.svg',
@@ -320,6 +394,7 @@ const mockRecipes: Recipe[] = [
     nutrition: { calories: 600, protein: 20, carbs: 80, fat: 22 },
     difficulty: 'medio',
     cookTime: 25,
+    servings: 2,
     preparation: "Precalienta el horno a 220°C. Extiende la masa de pizza sobre una bandeja. Cubre con la salsa de tomate, dejando un borde libre. Espolvorea el queso vegano y distribuye las verduras por encima. Hornea durante 15-20 minutos, o hasta que la masa esté dorada y el queso derretido.",
     kaiaTips: ['Precalienta bien el horno con la bandeja dentro para una base más crujiente.', 'Un chorrito de aceite de oliva y orégano seco antes de hornear le da un gran sabor.'],
     imageUrl: '/placeholder.svg',
@@ -339,6 +414,7 @@ const mockRecipes: Recipe[] = [
     nutrition: { calories: 480, protein: 10, carbs: 90, fat: 10 },
     difficulty: 'fácil',
     cookTime: 20,
+    servings: 2,
     preparation: "Cuece los gnocchi hasta que floten. Mientras, en una sartén, saltea el ajo picado y unas hojas de salvia. Añade el puré de calabaza, la leche de coco y la nuez moscada. Cocina a fuego lento hasta que la salsa esté caliente y homogénea. Escurre los gnocchi y mézclalos con la salsa.",
     kaiaTips: ['Fríe las hojas de salvia en un poco de aceite hasta que estén crujientes para decorar.', 'Tuesta unas semillas de calabaza para añadir un toque crujiente.'],
     imageUrl: '/placeholder.svg',
@@ -359,10 +435,31 @@ const mockRecipes: Recipe[] = [
     nutrition: { calories: 400, protein: 25, carbs: 45, fat: 15 },
     difficulty: 'medio',
     cookTime: 60,
+    servings: 4,
     preparation: "Corta las berenjenas por la mitad y vacía la pulpa. Hornea las cáscaras. Mientras, hidrata la soja texturizada. Sofríe la cebolla, el pimiento y la pulpa de la berenjena picada. Añade la soja, la salsa de tomate y el orégano. Rellena las berenjenas con la mezcla, cubre con queso vegano y gratina en el horno.",
     kaiaTips: ['"Asusta" las berenjenas con sal para quitarles el amargor antes de cocinarlas.', 'Añade pasas y piñones al relleno para un toque agridulce.'],
     imageUrl: '/placeholder.svg',
     tags: ['low-calorie', 'high-protein', 'gluten-free', 'nut-free'],
+  },
+  {
+    id: '22',
+    title: 'Pimientos Rellenos de Quinoa y Frijoles',
+    ingredients: [
+      { name: 'Pimientos rojos grandes', quantity: '4' },
+      { name: 'Quinoa cocida', quantity: '1 taza' },
+      { name: 'Frijoles negros cocidos', quantity: '1 taza' },
+      { name: 'Maíz dulce', quantity: '1/2 taza' },
+      { name: 'Cilantro picado', quantity: '1/4 taza' },
+      { name: 'Comino en polvo', quantity: '1 cdta' },
+    ],
+    nutrition: { calories: 380, protein: 15, carbs: 70, fat: 5 },
+    difficulty: 'medio',
+    cookTime: 45,
+    servings: 4,
+    preparation: "Precalienta el horno a 200°C. Corta la parte superior de los pimientos y quita las semillas. En un bol, mezcla la quinoa, los frijoles, el maíz, el cilantro y el comino. Rellena los pimientos con la mezcla. Colócalos en una bandeja para hornear, añade un poco de agua en el fondo y hornea durante 30-35 minutos.",
+    kaiaTips: ['Puedes cubrir los pimientos con queso vegano antes de hornear.', 'Sírvelos con una salsa de yogur vegano y lima.'],
+    imageUrl: '/placeholder.svg',
+    tags: ['balanced', 'gluten-free', 'soy-free', 'nut-free'],
   },
 ];
 
@@ -374,30 +471,52 @@ const shuffle = (array: Recipe[]) => {
   return array;
 }
 
-const generateMenuFromRecipes = (recipes: Recipe[]): Record<string, { breakfast: Recipe; lunch: Recipe; dinner: Recipe }> => {
-    if (recipes.length === 0) {
-        recipes = mockRecipes;
-    }
-    
-    let paddedRecipes = [...recipes];
-    // OPTIMIZED: Use a more efficient loop to pad the recipes array.
-    if (paddedRecipes.length > 0 && paddedRecipes.length < 9) {
-      const originalLength = paddedRecipes.length;
-      for (let i = 0; paddedRecipes.length < 9; i++) {
-        paddedRecipes.push(paddedRecipes[i % originalLength]);
-      }
-    }
+const padArray = (arr: Recipe[], minLength: number): Recipe[] => {
+  if (arr.length === 0) return [];
+  let padded = [...arr];
+  while (padded.length < minLength) {
+    padded = padded.concat(arr);
+  }
+  return padded.slice(0, minLength);
+}
 
-    const shuffled = shuffle(paddedRecipes);
+const generateMenuFromRecipes = (
+  breakfastRecipes: Recipe[],
+  otherRecipes: Recipe[]
+): Record<string, { breakfast: Recipe; lunch: Recipe; dinner: Recipe }> => {
+  if (breakfastRecipes.length === 0 || otherRecipes.length < 2) {
+    // Fallback to all recipes if not enough variety
+    const allRecipes = [...breakfastRecipes, ...otherRecipes];
+    if (allRecipes.length < 3) return {}; // Not enough recipes to generate a menu
+    
+    const paddedAll = padArray(allRecipes, 9);
+    const shuffledAll = shuffle(paddedAll);
     return {
-        Lunes: { breakfast: shuffled[0], lunch: shuffled[1], dinner: shuffled[2] },
-        Martes: { breakfast: shuffled[3], lunch: shuffled[4], dinner: shuffled[5] },
-        Miércoles: { breakfast: shuffled[6], lunch: shuffled[7], dinner: shuffled[8] },
-        Jueves: { breakfast: shuffled[1], lunch: shuffled[3], dinner: shuffled[5] },
-        Viernes: { breakfast: shuffled[2], lunch: shuffled[4], dinner: shuffled[6] },
-        Sábado: { breakfast: shuffled[0], lunch: shuffled[7], dinner: shuffled[8] },
-        Domingo: { breakfast: shuffled[3], lunch: shuffled[1], dinner: shuffled[4] },
-    }
+      Lunes: { breakfast: shuffledAll[0], lunch: shuffledAll[1], dinner: shuffledAll[2] },
+      Martes: { breakfast: shuffledAll[3], lunch: shuffledAll[4], dinner: shuffledAll[5] },
+      Miércoles: { breakfast: shuffledAll[6], lunch: shuffledAll[7], dinner: shuffledAll[8] },
+      Jueves: { breakfast: shuffledAll[1], lunch: shuffledAll[3], dinner: shuffledAll[5] },
+      Viernes: { breakfast: shuffledAll[2], lunch: shuffledAll[4], dinner: shuffledAll[6] },
+      Sábado: { breakfast: shuffledAll[0], lunch: shuffledAll[7], dinner: shuffledAll[8] },
+      Domingo: { breakfast: shuffledAll[3], lunch: shuffledAll[1], dinner: shuffledAll[4] },
+    };
+  }
+
+  const paddedBreakfasts = padArray(breakfastRecipes, 7);
+  const paddedOthers = padArray(otherRecipes, 14);
+
+  const shuffledBreakfasts = shuffle(paddedBreakfasts);
+  const shuffledOthers = shuffle(paddedOthers);
+
+  return {
+    Lunes: { breakfast: shuffledBreakfasts[0], lunch: shuffledOthers[0], dinner: shuffledOthers[1] },
+    Martes: { breakfast: shuffledBreakfasts[1], lunch: shuffledOthers[2], dinner: shuffledOthers[3] },
+    Miércoles: { breakfast: shuffledBreakfasts[2], lunch: shuffledOthers[4], dinner: shuffledOthers[5] },
+    Jueves: { breakfast: shuffledBreakfasts[3], lunch: shuffledOthers[6], dinner: shuffledOthers[7] },
+    Viernes: { breakfast: shuffledBreakfasts[4], lunch: shuffledOthers[8], dinner: shuffledOthers[9] },
+    Sábado: { breakfast: shuffledBreakfasts[5], lunch: shuffledOthers[10], dinner: shuffledOthers[11] },
+    Domingo: { breakfast: shuffledBreakfasts[6], lunch: shuffledOthers[12], dinner: shuffledOthers[13] },
+  };
 }
 
 type MealType = 'breakfast' | 'lunch' | 'dinner';
@@ -461,7 +580,10 @@ export const useRecipeStore = create<RecipeState>((set, get) => ({
         }
     }
 
-    set({ weeklyMenu: generateMenuFromRecipes(filteredRecipes) });
+    const breakfastRecipes = filteredRecipes.filter(r => r.tags.includes('breakfast'));
+    const otherRecipes = filteredRecipes.filter(r => !r.tags.includes('breakfast'));
+
+    set({ weeklyMenu: generateMenuFromRecipes(breakfastRecipes, otherRecipes) });
   },
   swapMeal: (day, mealType, newRecipe) => {
     set((state) => ({

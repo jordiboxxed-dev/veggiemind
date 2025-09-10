@@ -17,6 +17,7 @@ export interface Recipe {
   nutrition: NutritionInfo;
   difficulty: 'fácil' | 'medio' | 'avanzado';
   cookTime: number; // in minutes
+  servings: number; // number of portions
   kaiaTips: string[];
   imageUrl: string;
   tags: string[];

@@ -1,6 +1,6 @@
 import { Recipe } from "@/types";
 import GlassCard from "./GlassCard";
-import { ChefHat, Clock } from "lucide-react";
+import { ChefHat, Clock, Users } from "lucide-react";
 import { useRecipeStore } from "@/store/recipeStore";
 import { motion } from "framer-motion";
 
@@ -32,6 +32,9 @@ const RecipeCard = ({ recipe }: RecipeCardProps) => {
           </div>
           <div className="flex items-center gap-1 capitalize">
             <ChefHat className="w-3 h-3" /> {recipe.difficulty}
+          </div>
+          <div className="flex items-center gap-1">
+            <Users className="w-3 h-3" /> {recipe.servings} {recipe.servings > 1 ? 'porciones' : 'porción'}
           </div>
         </div>
       </GlassCard>

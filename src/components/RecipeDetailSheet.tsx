@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/sheet";
 import { useRecipeStore } from "@/store/recipeStore";
 import { Badge } from "./ui/badge";
-import { Flame, BrainCircuit, ChefHat, Clock, BookOpen } from "lucide-react";
+import { Flame, BrainCircuit, ChefHat, Clock, BookOpen, Users } from "lucide-react";
 
 const RecipeDetailSheet = () => {
   const { selectedRecipe, clearSelectedRecipe } = useRecipeStore();
@@ -25,6 +25,9 @@ const RecipeDetailSheet = () => {
                 </div>
                 <div className="flex items-center gap-1">
                   <ChefHat className="w-4 h-4" /> <span className="capitalize">{selectedRecipe.difficulty}</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <Users className="w-4 h-4" /> {selectedRecipe.servings} {selectedRecipe.servings > 1 ? 'porciones' : 'porción'}
                 </div>
               </SheetDescription>
             </SheetHeader>
@@ -46,7 +49,7 @@ const RecipeDetailSheet = () => {
                 </p>
               </div>
               <div>
-                <h3 className="font-semibold text-lg mb-2 text-neon-cyan">Nutrición (aprox.)</h3>
+                <h3 className="font-semibold text-lg mb-2 text-neon-cyan">Nutrición (aprox. por porción)</h3>
                 <div className="grid grid-cols-2 gap-2 text-sm">
                     <Badge variant="secondary" className="flex items-center gap-2"><Flame className="w-3 h-3 text-orange-400"/> {selectedRecipe.nutrition.calories} kcal</Badge>
                     <Badge variant="secondary">Proteína: {selectedRecipe.nutrition.protein}g</Badge>
