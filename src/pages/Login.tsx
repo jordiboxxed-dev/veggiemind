@@ -38,6 +38,7 @@ const Login = () => {
         <GlassCard className="w-full p-6">
           <Auth
             supabaseClient={supabase}
+            redirectTo="https://veggiemindv2.vercel.app/dashboard"
             appearance={{ theme: ThemeSupa }}
             providers={[]}
             theme="dark"
