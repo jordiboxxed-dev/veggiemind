@@ -1,11 +1,9 @@
 import { useSession } from '@/contexts/SessionContext';
-import { Navigate, Outlet, useLocation } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 
 const ProtectedRoute = () => {
   const { session, loading } = useSession();
-  const location = useLocation();
 
-  // Show loading state while checking auth
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -14,12 +12,10 @@ const ProtectedRoute = () => {
     );
   }
 
-  // Redirect to login if not authenticated and not already on login page
-  if (!session && location.pathname !== '/login' && location.pathname !== '/') {
+  if (!session) {
     return <Navigate to="/login" replace />;
   }
 
-  // If user is authenticated, allow access to protected routes
   return <Outlet />;
 };
 
