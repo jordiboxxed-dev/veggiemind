@@ -52,7 +52,24 @@ export const SessionProvider = ({ children }: { children: React.ReactNode }) => 
   }, []);
 
   useEffect(() => {
-    setLoading(true);
+    const initializeSession = async () => {
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        setSession(session);
+        const currentUser = session?.user ?? null;
+        setUser(currentUser);
+        if (currentUser) {
+          await fetchProfile(currentUser);
+        }
+      } catch (e) {
+        console.error("Error initializing session:", e);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    initializeSession();
+
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (_event, session) => {
         setSession(session);
@@ -63,7 +80,6 @@ export const SessionProvider = ({ children }: { children: React.ReactNode }) => 
         } else {
           setProfile(null);
         }
-        setLoading(false);
       }
     );
 
@@ -93,6 +109,14 @@ export const SessionProvider = ({ children }: { children: React.ReactNode }) => 
     logout,
     refreshProfile,
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen w-full flex items-center justify-center bg-background">
+        <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin border-brand-green"></div>
+      </div>
+    );
+  }
 
   return (
     <SessionContext.Provider value={value}>
