@@ -1,4 +1,4 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Bot, CalendarDays, UtensilsCrossed, LogOut, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -13,7 +13,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
   const isMobile = useIsMobile();
   const { logout, profile } = useSession();
-  const navigate = useNavigate();
   const { setUserProfile, generateWeeklyMenu, weeklyMenu } = useRecipeStore();
   const isMenuGenerated = Object.keys(weeklyMenu).length > 0;
   const menuGenerationStarted = useRef(false);
@@ -34,7 +33,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
   const handleLogout = async () => {
     await logout();
-    navigate('/login');
   };
 
   const navItems = [

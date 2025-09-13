@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState, useCallback } from 'react';
 import { Session, User } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
+import { showError } from '@/utils/toast';
 
 export interface Profile {
   goal: string | null;
@@ -89,10 +90,14 @@ export const SessionProvider = ({ children }: { children: React.ReactNode }) => 
   }, [fetchProfile]);
 
   const logout = async () => {
-    await supabase.auth.signOut();
-    setSession(null);
-    setUser(null);
-    setProfile(null);
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      showError("Error al cerrar sesión. Inténtalo de nuevo.");
+      console.error("Error signing out:", error);
+    }
+    // Forzar una recarga completa a la página de login.
+    // Esto limpia todo el estado de la aplicación y el almacenamiento local de forma segura.
+    window.location.href = '/login';
   };
 
   const refreshProfile = useCallback(async () => {
