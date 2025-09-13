@@ -7,7 +7,7 @@ import MobileNav from "./MobileNav";
 import { useSession } from "@/contexts/SessionContext";
 import { Button } from "./ui/button";
 import { useRecipeStore } from "@/store/recipeStore";
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
@@ -16,7 +16,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate();
   const { setUserProfile, generateWeeklyMenu, weeklyMenu } = useRecipeStore();
   const isMenuGenerated = Object.keys(weeklyMenu).length > 0;
-  const [isGeneratingMenu, setIsGeneratingMenu] = useState(false);
+  const menuGenerationStarted = useRef(false);
 
   useEffect(() => {
     if (profile) {
@@ -25,15 +25,11 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   }, [profile, setUserProfile]);
 
   useEffect(() => {
-    if (profile && !isMenuGenerated && !isGeneratingMenu) {
-      setIsGeneratingMenu(true);
-      try {
-        generateWeeklyMenu();
-      } finally {
-        setIsGeneratingMenu(false);
-      }
+    if (profile && !isMenuGenerated && !menuGenerationStarted.current) {
+      menuGenerationStarted.current = true;
+      generateWeeklyMenu();
     }
-  }, [profile, isMenuGenerated, generateWeeklyMenu, isGeneratingMenu]);
+  }, [profile, isMenuGenerated, generateWeeklyMenu]);
 
 
   const handleLogout = async () => {
