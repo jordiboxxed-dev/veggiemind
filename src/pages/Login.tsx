@@ -1,30 +1,10 @@
 import { Auth } from '@supabase/auth-ui-react';
 import { ThemeSupa } from '@supabase/auth-ui-shared';
 import { supabase } from '@/integrations/supabase/client';
-import { useSession } from '@/contexts/SessionContext';
-import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
 import { KaiaAvatar } from '@/components/KaiaAvatar';
 import GlassCard from '@/components/GlassCard';
 
 const Login = () => {
-  const { session, loading } = useSession();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (session && !loading) {
-      navigate('/dashboard');
-    }
-  }, [session, loading, navigate]);
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="w-16 h-16 border-4 border-dashed rounded-full animate-spin border-brand-green"></div>
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen w-full flex flex-col items-center justify-center p-4 font-sans">
       <main className="w-full max-w-md mx-auto flex flex-col items-center text-center">

@@ -12,6 +12,7 @@ import Layout from "./components/Layout";
 import Login from "./pages/Login";
 import { SessionProvider } from "./contexts/SessionContext";
 import ProtectedRoute from "./components/ProtectedRoute";
+import PublicRoute from "./components/PublicRoute";
 
 const queryClient = new QueryClient();
 
@@ -23,8 +24,10 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/login" element={<Login />} />
+            <Route element={<PublicRoute />}>
+              <Route path="/" element={<Index />} />
+              <Route path="/login" element={<Login />} />
+            </Route>
             
             <Route element={<ProtectedRoute />}>
               <Route 
